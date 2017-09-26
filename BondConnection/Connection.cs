@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Net;
 
 using Xamarin.Forms;
 using System.Threading.Tasks;
@@ -262,10 +263,12 @@ namespace BondConnection
             Listener_Rady.Text = "接続待機中";
             Listener_Rady.TextColor = Color.Blue;
 
+            // ホスト名を取得する
+          
 
 
-            // when we get connections, read bytes until we get -1 (eof)
-            listener.ConnectionReceived += async (sender, args) =>
+    // when we get connections, read bytes until we get -1 (eof)
+    listener.ConnectionReceived += async (sender, args) =>
             {
                 //サーバー用ソケットの取得
                 serverSocket = /*(Sockets.Plugin.TcpSocketClient)*/args.SocketClient;//*/ GetSocketClient(args);
@@ -329,7 +332,18 @@ namespace BondConnection
 
         }
 
-
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("Local IP Address Not Found!");
+        }
 
 
 
@@ -356,12 +370,10 @@ namespace BondConnection
             writer.FlushAsync();
         }
 
+      
 
-
-
-
-//********************************************************************************************
-//********************************************** Client **************************************
+        //********************************************************************************************
+        //********************************************** Client **************************************
 
 
 
@@ -489,9 +501,7 @@ namespace BondConnection
                                 DisplayAlert("For Sever Message ", recevemessage, "OK");
                             });
                             i = ++i;
-
                         }
-                        //return message;
                     }
                 }
             }
