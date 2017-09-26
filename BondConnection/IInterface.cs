@@ -52,6 +52,7 @@ namespace BondConnection
     {
         void StartGps();
         event LocationEventHandler LocationReceived;
+        string getIPAddress();
     }
 
 

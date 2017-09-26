@@ -262,8 +262,8 @@ namespace BondConnection
             Listener_Rady.TextColor = Color.Blue;
 
             // ホスト名を取得する
-           
-
+            var TcpLocator = DependencyService.Get<IGeolocator>();
+            Listener_Disp.Text = TcpLocator.getIPAddress();
 
             // when we get connections, read bytes until we get -1 (eof)
             listener.ConnectionReceived += async (sender, args) =>
@@ -374,6 +374,8 @@ namespace BondConnection
         {
             var address = "127.0.0.1";
 
+            IpAddressInput();
+
 
             TcpSocketClient client = new TcpSocketClient();
 
@@ -462,6 +464,33 @@ namespace BondConnection
         }
 
 
+        //**************************************************
+
+        protected void IpAddressInput()
+        {
+            //DisplayAlert("Tapped", str + " is Tapped", "OK");
+
+            Entry usercode = new Entry { Placeholder = "IPアドレスを入力", Keyboard = Keyboard.Numeric, };
+            usercode.Text = "";
+
+
+            Button submit = new Button { BackgroundColor = Color.Red, Text = "Ok" };
+            submit.Clicked += (sender, e) =>
+            {
+
+                return;//Entry_Completed;
+            };
+
+            Content = new StackLayout
+            {
+                Padding = 20,
+                VerticalOptions = LayoutOptions.Start,
+                Children = { usercode, submit }
+            };
+
+        }
+
+        //******************************************************************
 
 
 
@@ -531,6 +560,10 @@ namespace BondConnection
 
 
     }
+
+
+
+
 
 }
 
