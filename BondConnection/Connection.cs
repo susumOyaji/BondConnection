@@ -11,9 +11,7 @@ using System.Threading;
 using Sockets;
 using Sockets.Plugin;
 using Sockets.Plugin.Abstractions;
-
-
-
+using System.Net.Http;
 
 namespace BondConnection
 {
@@ -189,7 +187,7 @@ namespace BondConnection
             //消費カロリー（kcal）＝1.05×METs（メッツ）×時間×体重(kg)
 
 
-
+           
             //var label = new Label();
             //var plainTextButton = new Button { Text = "Show plain text dialog" };
             //var passwordButton = new Button { Text = "Show password dialog" };
@@ -264,11 +262,11 @@ namespace BondConnection
             Listener_Rady.TextColor = Color.Blue;
 
             // ホスト名を取得する
-          
+           
 
 
-    // when we get connections, read bytes until we get -1 (eof)
-    listener.ConnectionReceived += async (sender, args) =>
+            // when we get connections, read bytes until we get -1 (eof)
+            listener.ConnectionReceived += async (sender, args) =>
             {
                 //サーバー用ソケットの取得
                 serverSocket = /*(Sockets.Plugin.TcpSocketClient)*/args.SocketClient;//*/ GetSocketClient(args);
@@ -332,19 +330,7 @@ namespace BondConnection
 
         }
 
-        public static string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            throw new Exception("Local IP Address Not Found!");
-        }
-
+       
 
 
 
