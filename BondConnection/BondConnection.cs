@@ -6,7 +6,9 @@ namespace BondConnection
 {
     public class App : Application
     {
-        public App()
+        readonly NavigationPage _navigationPage;
+
+        public App(string startUpParam)
         {
             // The root page of your application
             var content = new ContentPage
@@ -35,14 +37,23 @@ namespace BondConnection
                 }
             };
 
+
+            // NavigationPage を保持しておいて CurrentPage を外部に公開する
+            _navigationPage = new NavigationPage(new MainPage());
+            MainPage = _navigationPage;
+
             //MainPage = new NavigationPage(content);
             //MainPage = new Starting();
 
-            MainPage = new Connection();
+            //MainPage = new Connection();
             //Connection Main = new Connection();
             //Main.ListenerConnection();
             //Main.ClientConnection();
         }
+
+        // 出、出〜！カッコつけてラムダで getter 書奴〜ｗｗｗｗ
+        public Page CurrentPage => _navigationPage.CurrentPage;
+
 
         protected override void OnStart()
         {

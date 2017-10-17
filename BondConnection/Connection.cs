@@ -17,6 +17,8 @@ namespace BondConnection
 {
     public partial class Connection : ContentPage
     {
+      
+
         static int Port = 4096;
         int i = 0;
 
@@ -69,6 +71,7 @@ namespace BondConnection
 
         public Connection()
         {
+            Title = "ConnectionPage";
             ConnectionDisp();
         }
 
